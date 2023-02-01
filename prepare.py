@@ -6,7 +6,7 @@ from sklearn.impute import SimpleImputer
 
 
 #function for doing train test split on any continuous variable
-def tts_con(df, stratify=None):
+def tts(df, stratify=None):
     '''
     removing your test data from the data
     '''
