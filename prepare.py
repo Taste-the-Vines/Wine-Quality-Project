@@ -107,3 +107,12 @@ def scale_wine(df):
     mm.fit(df[col])
     df[col]=mm.transform(df[col])
     return df
+
+
+def scale_wine(df):
+    mm=sklearn.preprocessing.MinMaxScaler()
+    col=['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides',
+          'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
+    mm.fit(df[col])
+    df[col]=mm.transform(df[col])
+    return df
