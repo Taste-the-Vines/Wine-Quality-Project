@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
+import sklearn.preprocessing
+from sklearn.preprocessing import MinMaxScaler
 
 
 
@@ -96,4 +98,12 @@ def handle_missing_values(df, prop_req_column, prop_req_row):
     df= df.dropna(axis=1, thresh= drop_col)
     drop_row= len(df.columns)* prop_req_row
     df= df.dropna(axis=0, thresh=drop_row)
+    return df
+
+def scale_wine(df):
+    mm=sklearn.preprocessing.MinMaxScaler()
+    col=['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides',
+          'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
+    mm.fit(df[col])
+    df[col]=mm.transform(df[col])
     return df
