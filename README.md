@@ -14,9 +14,27 @@
 ### -Preparation 
 #### two data sets merged 
 #### checked for nulls (there were none)
-#### created column for color of wine
+#### created column for color of wine (see data dictionary)
 #### outliers removed
-
+#### data split into Train, Validate, and Test sets
+### -Exploration
+#### vizualizaitons 
+#### bivariate stats analysis
+#### see below
+### -Feature Engineering
+#### dummies created
+#### clustering experimented with (see below)
+## Exploration
+### -
+### -
+### -
+### -
+#### * see explore.py module for notations on exploration functions
+## Preparation
+### * see prepare.py for notations and information on further disposition of data during and after acquisition
+## Modeling
+### Models used for Train and Validation
+#### Random Forest iterations (best selected)
 
 ## Data Dictionary
 | Feature | Description |
@@ -32,7 +50,8 @@
 | pH | describes how acidic or basic a wine is on a scale from 0 (very acidic) to 14 (very basic); most wines are between 3-4 on the pH scale |
 | sulphates | a wine additive which can contribute to sulfur dioxide gas (S02) levels, wich acts as an antimicrobial and antioxidant (potassium sulphate - g / dm3) |
 | alcohol | the percent alcohol content of the wine (% by volume) |
-| quality | rated by sensory observation of expert (score between 0 and 10) |
+| color | color of the wine (red or white) |
+| quality | rated by sensory observation of expert (score between 0 and 10) TARGET VALUE |
 |reference | https://rstudio-pubs-static.s3.amazonaws.com/57835_c4ace81da9dc45438ad0c286bcbb4224.html |
 
 
