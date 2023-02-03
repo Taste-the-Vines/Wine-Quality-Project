@@ -17,6 +17,12 @@ def get_wine():
     wine= pd.concat([red, white], ignore_index=True)
     return wine
 
+def target_viz(df):
+    sns.histplot(x='quality', data=df)
+    plt.xlabel('Quality Rating')
+    plt.title('Visualizing the Target Variable')
+    plt.grid(True, alpha=0.3, linestyle='--')
+
 def q1_plots(train):
     q3= train[train['quality']<6]
     q9= train[train['quality']>6]
