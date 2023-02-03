@@ -1,7 +1,7 @@
 # Wine-Quality-Project
 
 ## Project Description
-#### Data pulled from Data.world. The two datasets are related to red and white variants of the Portuguese "Vinho Verde" wine. Number of wines representing datapoints: red wine - 1599; white wine - 4898. 11 features were utilized (reference: data.world/food/wine/wine-quality).
+#### Data pulled from Data.world. The two datasets are related to red and white variants of the Portuguese "Vinho Verde" wine. Number of wines representing datapoints: red wine - 1599; white wine - 4898. 11 features were utilized (reference: (https://data.world/food/wine-quality)).
 
 ## Goals 
   * Analyze wine composition data and the 3-9 quality classification
@@ -76,7 +76,7 @@
 | alcohol | the percent alcohol content of the wine (% by volume) |
 | color | color of the wine (red or white) |
 | quality | rated by sensory observation of expert (score between 0 and 10) TARGET VALUE |
-|reference | https://rstudio-pubs-static.s3.amazonaws.com/57835_c4ace81da9dc45438ad0c286bcbb4224.html |
+ ### reference   https://rstudio-pubs-static.s3.amazonaws.com/57835_c4ace81da9dc45438ad0c286bcbb4224.html 
 
 
 ## Steps to Reproduce
