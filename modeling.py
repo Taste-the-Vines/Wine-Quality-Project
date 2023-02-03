@@ -100,3 +100,181 @@ def model(x_train, y_train, x_val, y_val, x_test, y_test):
     return metrics
 
 
+def model_info():
+    white=pd.read_csv('winequality-white.csv')
+    red=pd.read_csv('winequality-red.csv')
+    red['color']= 'red'
+    white['color']= 'white'
+    wine= pd.concat([red, white], ignore_index=True)
+    wine, fences=remove_outliers(wine)
+    wine=scale_wine(wine)
+    wine=pd.get_dummies(wine, columns=['color'])
+    train, val, test= tts(wine, 'quality')
+    #setting values to cluster by
+    X=train[['chlorides', 'residual sugar']]
+    V=val[['chlorides', 'residual sugar']]
+    #making, fitting, and predicting clusters
+    kmeans = KMeans(n_clusters=4, random_state=8675309)
+    kmeans.fit(X)
+
+    train['rs_chl_cluster']=kmeans.predict(X)
+    val['rs_chl_cluster']=kmeans.predict(V)
+
+    #separating into x and y
+    x_train= train.drop(columns=['quality', 'chlorides', 'residual sugar'])
+    y_train= train['quality']
+
+    x_val= val.drop(columns=['quality', 'chlorides', 'residual sugar'])
+    y_val= val['quality']
+
+    metrics= []
+
+                                                        #build the model
+    rm= RandomForestClassifier(max_depth= 2, min_samples_leaf= 1, random_state=8675309)
+                                                        #fit the model
+    rm.fit(x_train, y_train)
+                                                        #get accuracy from in and out of sample data
+    in_sample= rm.score(x_train, y_train)
+    out_of_sample= rm.score(x_val, y_val)
+                                                        #assigning the output to a dictionary
+    output={'max_depth': 2,
+            'min_samples_leaf': 1,
+            'train_accuracy': in_sample,
+            'validate_accuracy': out_of_sample,
+            'cluster': 'residual_sugar_and_chloride'
+            }
+                                                        #appending the output dictionary to the empty metrics list
+    metrics.append(output)
+
+    train=train.drop(columns=['rs_chl_cluster'])
+    val=val.drop(columns=['rs_chl_cluster'])
+    ############################################################################################
+    seed = 8675309
+    X=train[['fixed acidity', 'volatile acidity']]
+    V=val[['fixed acidity', 'volatile acidity']]
+    kmeans= KMeans(n_clusters = 3, random_state = seed)
+
+    kmeans.fit(X)
+
+    train['bart_cluster']=kmeans.predict(X)
+    val['bart_cluster']=kmeans.predict(V)
+
+    #separating into x and y
+    x_train= train.drop(columns=['quality', 'fixed acidity', 'volatile acidity'])
+    y_train= train['quality']
+
+    x_val= val.drop(columns=['quality', 'fixed acidity', 'volatile acidity'])
+    y_val= val['quality']
+
+
+                                                        #build the model
+    rm= RandomForestClassifier(max_depth= 2, min_samples_leaf= 1)
+                                                        #fit the model
+    rm.fit(x_train, y_train)
+                                                        #get accuracy from in and out of sample data
+    in_sample= rm.score(x_train, y_train)
+    out_of_sample= rm.score(x_val, y_val)
+                                                        #assigning the output to a dictionary
+    output={
+        'max_depth': 2,
+        'min_samples_leaf': 1,
+        'train_accuracy': in_sample,
+        'validate_accuracy': out_of_sample,
+        'cluster': 'fixed_acidity_and_volatile_acidity'
+    }
+                                                        #appending the output dictionary to the empty metrics list
+    metrics.append(output)
+
+    ###################################################################################
+
+    #setting values to cluster by
+    X=train[['chlorides', 'residual sugar']]
+    V=val[['chlorides', 'residual sugar']]
+    #making, fitting, and predicting clusters
+    kmeans = KMeans(n_clusters=4, random_state=8675309)
+    kmeans.fit(X)
+
+    train['rs_chl_cluster']=kmeans.predict(X)
+    val['rs_chl_cluster']=kmeans.predict(V)
+
+    #separating into x and y
+    x_train= train.drop(columns=['quality', 'fixed acidity', 'volatile acidity', 'chlorides', 'residual sugar'])
+    y_train= train['quality']
+
+    x_val= val.drop(columns=['quality', 'fixed acidity', 'volatile acidity', 'chlorides', 'residual sugar'])
+    y_val= val['quality']
+
+
+                                                        #build the model
+    rm= RandomForestClassifier(max_depth= 2, min_samples_leaf= 1, random_state=seed)
+                                                        #fit the model
+    rm.fit(x_train, y_train)
+                                                        #get accuracy from in and out of sample data
+    in_sample= rm.score(x_train, y_train)
+    out_of_sample= rm.score(x_val, y_val)
+                                                        #assigning the output to a dictionary
+    output={
+        'max_depth': 2,
+        'min_samples_leaf': 1,
+        'train_accuracy': in_sample,
+        'validate_accuracy': out_of_sample,
+        'cluster': 'both'
+    }
+                                                        #appending the output dictionary to the empty metrics list
+    metrics.append(output)
+
+    #############################################################################################
+
+    train=train.drop(columns=['rs_chl_cluster', 'bart_cluster'])
+    val=val.drop(columns=['rs_chl_cluster', 'bart_cluster'])
+
+    #separating into x and y
+    x_train= train.drop(columns=['quality'])
+    y_train= train['quality']
+
+    x_val= val.drop(columns=['quality'])
+    y_val= val['quality']
+
+                                                        #build the model
+    rm= RandomForestClassifier(max_depth= 3, min_samples_leaf= 1, random_state=8675309)
+                                                        #fit the model
+    rm.fit(x_train, y_train)
+                                                        #get accuracy from in and out of sample data
+    in_sample= rm.score(x_train, y_train)
+    out_of_sample= rm.score(x_val, y_val)
+                                                        #assigning the output to a dictionary
+    output={
+        'max_depth': 3,
+        'min_samples_leaf': 1,
+        'train_accuracy': in_sample,
+        'validate_accuracy': out_of_sample,
+        'cluster': 'none'
+    }
+                                                        #appending the output dictionary to the empty metrics list
+    metrics.append(output)
+    metrics=pd.DataFrame(data=metrics)
+    metrics['difference']=metrics['train_accuracy']-metrics['validate_accuracy']
+    return metrics
+
+
+
+def model_viz(df):
+    plt.figure(figsize=(10,10))
+    X = ['Cluster 1','Cluster 2','Both','None']
+    trainacc = df['train_accuracy']
+    valacc = df['validate_accuracy']
+    diff= df['difference']
+  
+    X_axis = np.arange(len(X))
+  
+    plt.bar(X_axis - 0.2, trainacc, 0.4, label = 'Train Accuracy', color=['blue'], ec='black')
+    plt.bar(X_axis + 0.2, valacc, 0.4, label = 'Validate Accuracy', color=['green'], ec='black')
+  
+    plt.xticks(X_axis, X)
+    plt.xlabel("Model Includes")
+    plt.ylabel("Accuracy")
+    plt.title("Accuracy of Models")
+    plt.ylim(0,.7)
+    plt.grid(True, alpha=0.3, linestyle='--')
+    plt.legend()
+    plt.show()
