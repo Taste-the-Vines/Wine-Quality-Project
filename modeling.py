@@ -259,7 +259,7 @@ def model_info():
 
 
 def model_viz(df):
-    plt.figure(figsize=(10,10))
+    plt.figure(figsize=(10,7))
     X = ['Cluster 1','Cluster 2','Both','None']
     trainacc = df['train_accuracy']
     valacc = df['validate_accuracy']
