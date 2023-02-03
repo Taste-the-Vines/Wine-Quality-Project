@@ -4,37 +4,61 @@
 #### Data pulled from Data.world. The two datasets are related to red and white variants of the Portuguese "Vinho Verde" wine. Number of wines representing datapoints: red wine - 1599; white wine - 4898. 11 features were utilized (reference: data.world/food/wine/wine-quality).
 
 ## Goals 
-#### - Analyze wine composition data and the 3-9 quality classification
-#### - Establish a baseline classification for wine target value
-#### - Generate a model that beats the baseline in acuracy
+  * Analyze wine composition data and the 3-9 quality classification
+  * Establish a baseline classification for wine target value
+  * Generate a model that beats the baseline in acuracy
+
+## Initial Hypothesis
+###
 
 ## Project Plan
-### - Acquisition
-#### two datasets on Red and White wine pulled from Data.world
-### -Preparation 
-#### two data sets merged 
-#### checked for nulls (there were none)
-#### created column for color of wine (see data dictionary)
-#### outliers removed
-#### data split into Train, Validate, and Test sets
-### -Exploration
-#### vizualizaitons 
-#### bivariate stats analysis
-#### see below
-### -Feature Engineering
-#### dummies created
-#### clustering experimented with (see below)
-## Exploration
-### -
-### -
-### -
-### -
+ * Acquisition
+   * two datasets on Red and White wine pulled from Data.world
+ * Preparation 
+   * two data sets merged 
+   * checked for nulls (there were none)
+   * created column for color of wine (see data dictionary)
+   * outliers removed
+   * data split into Train, Validate, and Test sets
+ * Exploration
+   * vizualizaitons 
+   * bivariate stats analysis
+   * see below
+* Feature Engineering
+  * dummies created
+  * clustering experimented with (see below)
+##  Exploration
+### Exploration Question 1:
+* Is the average alcohol content in low quality wine significantly lower than the alcohol content in high quality wine?
+  -  𝐻0
+   : There is no difference the average alcohol content between wines with a quality of less than 5 and wines with a quality greater than 7
+  -  𝐻𝑎
+   : The average alcohol content of wines with a quality less than 6 is significantlly lower than the average alcohol content of wines with a quality greater than 6
+### Exploration Question 2:
+* Is the average chloride in high quality wine significantly lower than the average chloride for all wines?
+  -  𝐻0
+   : There is no difference the average chloride in wines with a quality greater than 6 and the average chloride in all wines
+  -  𝐻𝑎
+   : The average chloride of wines with a quality greater than 6 is significantlly lower than the average chloride of all wines
+### Exploration Question 3:
+* Is the average citric acid in low quality wine significantly lower than the average citric acid in high quality wines?
+-  𝐻0
+ : There is no difference the average citric acid in wines with quality lower than 6 and the average citric acid in wines with quality greater than 6
+-  𝐻𝑎
+ : The average citric acid of wines with quality lower than 6 is significantlly lower than the average citric acid of wines with quality greater than 6
+ ### Exploration Question 4:
+*Is the average pH in low quality wine significantly lower than the average pH in high quality wines?
+-  𝐻0
+ : There is no difference the average pH in wines with quality lower than 6 and the average pH in wines with quality greater than 6
+-  𝐻𝑎
+ : The average pH of wines with quality lower than 6 is significantlly lower than the average pH of wines with quality greater than 6
 #### * see explore.py module for notations on exploration functions
 ## Preparation
 ### * see prepare.py for notations and information on further disposition of data during and after acquisition
 ## Modeling
-### Models used for Train and Validation
-#### Random Forest iterations (best selected)
+  * Models used for Train and Validation
+  * Random Forest iterations (best selected)
+
 
 ## Data Dictionary
 | Feature | Description |
@@ -55,4 +79,8 @@
 |reference | https://rstudio-pubs-static.s3.amazonaws.com/57835_c4ace81da9dc45438ad0c286bcbb4224.html |
 
 
-
+## Steps to Reproduce
+1. Clone this repo
+2. Obtain the data from Data.world and use the fuctions from prepare.py module.
+3. Run the explore and modeling notebooks
+4. Run final report notebook using the explore.py and modeling.py
