@@ -121,13 +121,13 @@ def q3_plots(df):
     plt.figure(figsize=(10,5))
     plt.subplot(221)
     sns.histplot(x='citric acid', data=q34)
-    plt.title('Low Quality Wine (3-4)')
+    plt.title('Low Quality Wine (3-5)')
     plt.xlabel('Citric Acid')
     plt.grid(True, alpha=0.3, linestyle='--')
     
     plt.subplot(222)
     sns.histplot(x='citric acid', data=q89)
-    plt.title('High Quality Wine (8-9)')
+    plt.title('High Quality Wine (7-9)')
     plt.xlabel('Citric Acid')
     plt.grid(True, alpha=0.3, linestyle='--')
     
