@@ -40,6 +40,7 @@ def mod_prep():
 
 
 def cluster_1(train):
+    train=scale_wine(train)
     X=train[['chlorides', 'residual sugar']]
     kmeans = KMeans(n_clusters=4)
     kmeans.fit(X)
@@ -58,6 +59,7 @@ def cluster_1(train):
 
 
 def cluster_2(train):
+    train=scale_wine(train)
     seed = 8675309
     kmeans_scale = KMeans(n_clusters = 3, random_state = seed)
     X=train[['fixed acidity', 'volatile acidity']]
